@@ -107,7 +107,8 @@ Widget build(BuildContext context) {
             ),
             SizedBox(height: 10),
             Text(
-              'Limpieza rápida del área del comedor, garantizando un ambiente libre de polvo y residuos.',
+              'Limpieza rápida del área del comedor, garantizando un ambiente libre de polvo y residuos.\n'
+              'De Lunes a viernes de 8:00 a.m - 8:00 p.m',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 10),

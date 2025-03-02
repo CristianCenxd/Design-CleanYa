@@ -3,6 +3,7 @@ import 'chats.dart';
 import 'principal.dart';
 import 'tu.dart';
 import 'chat.dart';
+import 'evidencia.dart'; // Asegúrate de que la ruta esté correcta
 
 class HistorialSoliScreen extends StatefulWidget {
   @override
@@ -30,6 +31,10 @@ class _HistorialSoliScreenState extends State<HistorialSoliScreen> {
       {"titulo": "Limpieza de jardín", "ubicacion": "Calle 24 #232-A x 60 y 63 Col. Centro", "precio": "\$1,500", "fecha": "Ayer, 21/Feb/2025"},
       {"titulo": "Limpieza de cochera", "ubicacion": "Calle 12 #344 x 92 y 33 Col. Madero", "precio": "\$1,900", "fecha": "Martes, 20/Feb/2025"},
     ],
+    "Finalizada": [
+      {"titulo": "Limpieza de cocina", "ubicacion": "Calle 24 #232-A x 60 y 63 Col. Centro", "precio": "\$1,800", "fecha": "Ayer, 21/Feb/2025"},
+      {"titulo": "Limpieza de cuarto", "ubicacion": "Calle 12 #344 x 92 y 33 Col. Madero", "precio": "\$1,202", "fecha": "Martes, 20/Feb/2025"},
+    ],
   };
 
   @override
@@ -46,7 +51,7 @@ class _HistorialSoliScreenState extends State<HistorialSoliScreen> {
           SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: ["Pendiente", "Aceptada", "En progreso", "Rechazada"].map((estado) {
+            children: ["Pendiente", "Aceptada", "En progreso", "Rechazada", "Finalizada"].map((estado) {
               return GestureDetector(
                 onTap: () {
                   setState(() {
@@ -106,19 +111,19 @@ class _HistorialSoliScreenState extends State<HistorialSoliScreen> {
                     Text("Estado: $estadoSeleccionado", style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
-                if (servicio.containsKey("aclaracion"))
+                if (estadoSeleccionado == "Finalizada") // Verifica si el estado es Finalizada
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          _isDetailsVisible = !_isDetailsVisible;
-                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EvidenciaScreen()), // Navega a la pantalla de evidencia
+                        );
                       },
                       child: Text(
-                        servicio["aclaracion"]!,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        "¿Desea agregar un comentario o evidencia?",
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
                     ),
                   ),
@@ -160,12 +165,12 @@ class _HistorialSoliScreenState extends State<HistorialSoliScreen> {
             SizedBox(height: 10),
             GestureDetector(
               onTap: () {
-Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => ChatScreen(chatPartnerName: "Mariana Canche"), // Pasar el nombre aquí
-  ),
-);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatScreen(chatPartnerName: "Mariana Canche"), // Pasar el nombre aquí
+                  ),
+                );
               },
               child: Text("Contáctame", textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.blue)),
             ),
